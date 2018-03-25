@@ -1,16 +1,26 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base'
 
-const FlickerSearch = () => {
+import { onSearchInputEnter } from '../redux/actions/flicker'
+
+const FlickerSearch = ({ onSearchInputEnter }) => {
   return (    
     <Header searchBar rounded>
       <Item>
-        <Icon name="ios-search" />
-        <Input placeholder="Search flicker" />
-        <Icon name="ios-camera" />
+        <Icon name="search" />
+        <Input placeholder="Search flicker" onChangeText={onSearchInputEnter} />
+        <Icon name="camera" />
       </Item>        
     </Header>
   )
 }
 
-export default FlickerSearch
+const mapDispatchToProps = dispatch => 
+  bindActionCreators({ 
+    onSearchInputEnter
+  }, dispatch)
+
+
+export default connect(null, mapDispatchToProps)(FlickerSearch)
