@@ -1,22 +1,25 @@
 import React from 'react'
-import { List, ListItem, Thumbnail, Text, Body } from 'native-base'
+import { List, ListItem, Thumbnail, Text, Body, Right } from 'native-base'
 import { connect } from 'react-redux'
-import { getSmallPhoto } from '../services/photos';
+import { getSmallPhoto } from '../services/photos'
 
 const FlickerList = ({ photos }) => {
   return (    
-    <List>
-      {
-        photos.map(photo => (
-          <ListItem key={photo.id}>
-            <Thumbnail square size={80} source={{ uri: getSmallPhoto(photo) }} />
-            <Body>
-              <Text note> { photo.title } </Text>
-            </Body>
-          </ListItem>        
-        ))
-      }      
-    </List>
+    <List dataArray={photos} renderRow={(photo, _, index) => {
+      // check if index of renderedPhoto is above 1/2 of complete length then get the next 10 :D
+      return (
+        <ListItem key={photo.id}>
+          <Thumbnail square size={80} source={{ uri: getSmallPhoto(photo) }} />
+          <Body>
+            <Text> { photo.title } </Text>
+          </Body>
+          <Right>
+            <Text note>{ index }</Text>
+          </Right>
+        </ListItem>
+        )}
+      }
+    />    
   )
 }
 
