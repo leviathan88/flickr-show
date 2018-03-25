@@ -14,7 +14,7 @@ const FlickerList = ({ photos }) => {
             <Text> { photo.title } </Text>
           </Body>
           <Right>
-            <Text note>{ index }</Text>
+            <Text note>{ Number(index) + 1 } / { photos.length }</Text>
           </Right>
         </ListItem>
         )}
