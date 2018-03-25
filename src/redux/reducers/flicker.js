@@ -1,4 +1,4 @@
-import { ON_SEARCH_PHOTOS_ENTER } from "../constants/flicker"
+import { ON_SEARCH_PHOTOS_ENTER, ON_INITIAL_PHOTOS_LOADED } from "../constants/flicker"
 import { returnNewState } from "../helpers"
 
 export function Flicker(state = initialState, { type, payload }) {
@@ -6,10 +6,19 @@ export function Flicker(state = initialState, { type, payload }) {
 
     case ON_SEARCH_PHOTOS_ENTER:
       return returnNewState(state, { searchTerms: payload })
+
+    case ON_INITIAL_PHOTOS_LOADED:
+      return returnNewState(state, { photos: payload.photos.photo, currentPage: 1 })
   
     default:
       return state
   }
+}
+
+const initialState = {
+  photos: [],
+  searchTerms: '',
+  currentPage: 1
 }
 
 const examplePhotos = [
@@ -190,9 +199,4 @@ const examplePhotos = [
     "isfamily": 0
   },
 ]
-
-const initialState = {
-  photos: examplePhotos,
-  searchTerms: ''
- }
 
