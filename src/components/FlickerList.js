@@ -7,6 +7,7 @@ const FlickerList = ({ photos }) => {
   return (    
     <List dataArray={photos} renderRow={(photo, _, index) => {
       // check if index of renderedPhoto is above 1/2 of complete length then get the next 10 :D
+      console.log(index)
       return (
         <ListItem key={photo.id}>
           <Thumbnail square size={80} source={{ uri: getSmallPhoto(photo) }} />
