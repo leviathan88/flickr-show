@@ -7,8 +7,8 @@ import FlickerList from './components/FlickerList'
 const MainComponent = () =>
   <Container>
     <FlickerHeader />
-    <Content>
-      <FlickerSearch />
+    <FlickerSearch />
+    <Content>      
       <FlickerList />
     </Content>
   </Container>
