@@ -1,0 +1,3 @@
+rootProject.name = 'FlickerShow'
+
+include ':app'
