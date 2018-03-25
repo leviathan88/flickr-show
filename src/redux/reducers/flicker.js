@@ -1,5 +1,5 @@
-import { ON_SEARCH_PHOTOS_ENTER } from "../constants/flicker";
-import { returnNewState } from "../helpers";
+import { ON_SEARCH_PHOTOS_ENTER } from "../constants/flicker"
+import { returnNewState } from "../helpers"
 
 export function Flicker(state = initialState, { type, payload }) {
   switch (type) {
@@ -11,8 +11,6 @@ export function Flicker(state = initialState, { type, payload }) {
       return state
   }
 }
-
-
 
 const examplePhotos = [
   {
