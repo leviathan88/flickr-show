@@ -1,6 +1,6 @@
 ## Instructions
 ```sh
-$ git clone git@github.com:leviathan88/react-native-project.git
+$ git clone git@github.com:leviathan88/flickr-show.git
 $ cd flickr-show
 $ npm install
 (plug in your Android Phone or run Emulator, tested on: Nexus 5X API 24)
