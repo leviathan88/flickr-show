@@ -8,14 +8,18 @@ export function Flicker(state = initialState, { type, payload }) {
       return returnNewState(state, { searchTerms: payload, isLoading: true })
 
     case ON_INITIAL_PHOTOS_LOADED:
-      return returnNewState(state, { photos: payload.photos.photo, currentPage: 1, isLoading: false })
+      console.log('initial')
+      console.log(payload)
+      return returnNewState(state, { photos: payload, currentPage: 1, isLoading: false })
 
     case ON_LOAD_MORE_PHOTOS:
       return returnNewState(state, { isLoading: true })
 
     case ON_MORE_PHOTOS_LOADED:
+      console.log('more')
+      console.log(payload)
       return returnNewState(state, { 
-        photos: [...state.photos, ...payload.photos.photo], 
+        photos: [...state.photos, ...payload], 
         currentPage: state.currentPage + 1, 
         isLoading: false 
       })
