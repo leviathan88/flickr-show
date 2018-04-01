@@ -4,23 +4,12 @@ import { FlatList, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getSmallPhoto } from '../../services/photos'
-import { loadMorePhotos } from '../../redux/actions/flicker'
+import { loadMorePhotos, showPhotoDetails } from '../../redux/actions/flicker'
+import Loader from '../Shared/Loader';
 
-const FlickerList = ({ photos, loadMorePhotos, isLoading }) => {
+const FlickerList = ({ photos, loadMorePhotos, isLoading, showPhotoDetails }) => {
   renderFooter = () => {
-    if (!isLoading) return null
-
-    return (
-      <View
-        style={{
-          paddingVertical: 20,
-          borderTopWidth: 1,
-          borderColor: "#CED0CE"
-        }}
-      >
-        <ActivityIndicator animating size="large" />
-      </View>
-    )
+    return !isLoading ? null : <Loader />
   }
 
   return (    
@@ -29,7 +18,7 @@ const FlickerList = ({ photos, loadMorePhotos, isLoading }) => {
         data={photos}
         keyExtractor={item => item.id}
         renderItem={({ item, index }) => (
-          <ListItem>
+          <ListItem onPress={() => showPhotoDetails(item.id)}>
             <Thumbnail square size={80} source={{ uri: getSmallPhoto(item) }} />
             <Body>
               <Text> { item.title } </Text>
@@ -57,7 +46,8 @@ const mapStateToProps = ({ Flicker }) => {
 
 const mapDispatchToProps = dispatch => 
   bindActionCreators({ 
-    loadMorePhotos
+    loadMorePhotos,
+    showPhotoDetails
   }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(FlickerList)
