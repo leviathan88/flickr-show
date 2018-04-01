@@ -20,9 +20,9 @@ export function onPhotoSearchTermEnter(action$) {
     .switchMap(({ payload }) => 
       ajax.get(getPhotos(payload, 1))
         .do(_ => console.log(_))
-        .map(({xhr}) =>formatResponse(xhr))
+        .map(({xhr}) => formatResponse(xhr))
         .do(_ => console.log(_))
-        .map((res) => ({ type: ON_INITIAL_PHOTOS_LOADED, payload: res }))        
+        .map((res) => handleResponse(res, ON_INITIAL_PHOTOS_LOADED))
   )
 }
 
@@ -33,7 +33,7 @@ export function onLoadMorePhotos(action$, store) {
         .do(_ => console.log(_))
         .map(({xhr}) =>formatResponse(xhr))
         .do(_ => console.log(_))
-        .map((res) => ({ type: ON_MORE_PHOTOS_LOADED, payload: res }))
+        .map((res) => handleResponse(res, ON_MORE_PHOTOS_LOADED))
     )
 
 }
@@ -44,4 +44,8 @@ function getPhotos(text, page) {
 
 function formatResponse(xhr) {
   return JSON.parse('{' + xhr._response.slice(15, -1))
+}
+
+function handleResponse({ stat, photos }, type) {  
+  return { type: type, payload: stat === 'fail'? [] : photos.photo }
 }
