@@ -12,7 +12,7 @@ import 'rxjs/add/operator/catch'
 import { ajax } from 'rxjs/observable/dom/ajax'
 import { Observable } from 'rxjs'
 
-import { ON_SEARCH_PHOTOS_ENTER, ON_INITIAL_PHOTOS_LOADED } from '../constants/flicker'
+import { ON_SEARCH_PHOTOS_ENTER, ON_INITIAL_PHOTOS_LOADED, ON_LOAD_MORE_PHOTOS, ON_MORE_PHOTOS_LOADED } from '../constants/flicker'
 
 export function onPhotoSearchTermEnter(action$) {
   return action$.ofType(ON_SEARCH_PHOTOS_ENTER)
@@ -20,12 +20,28 @@ export function onPhotoSearchTermEnter(action$) {
     .switchMap(({ payload }) => 
       ajax.get(getPhotos(payload, 1))
         .do(_ => console.log(_))
-        .map(({xhr}) =>JSON.parse('{' + xhr._response.slice(15, -1)))
+        .map(({xhr}) =>formatResponse(xhr))
         .do(_ => console.log(_))
         .map((res) => ({ type: ON_INITIAL_PHOTOS_LOADED, payload: res }))        
   )
 }
 
+export function onLoadMorePhotos(action$, store) {
+  return action$.ofType(ON_LOAD_MORE_PHOTOS)
+    .switchMap(_ => 
+      ajax.get(getPhotos(store.getState().Flicker.searchTerms, store.getState().Flicker.currentPage + 1))
+        .do(_ => console.log(_))
+        .map(({xhr}) =>formatResponse(xhr))
+        .do(_ => console.log(_))
+        .map((res) => ({ type: ON_MORE_PHOTOS_LOADED, payload: res }))
+    )
+
+}
+
 function getPhotos(text, page) {
-  return `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ad24bb1f7a2c63b760462b485f9bb9f0&format=json&per_page=25&text=${text}&page=${page}`
+  return `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ad24bb1f7a2c63b760462b485f9bb9f0&format=json&per_page=55&text=${text}&page=${page}`
+}
+
+function formatResponse(xhr) {
+  return JSON.parse('{' + xhr._response.slice(15, -1))
 }
