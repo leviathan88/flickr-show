@@ -13,6 +13,7 @@ import { ajax } from 'rxjs/observable/dom/ajax'
 import { Observable } from 'rxjs'
 
 import { ON_SEARCH_PHOTOS_ENTER, ON_INITIAL_PHOTOS_LOADED, ON_LOAD_MORE_PHOTOS, ON_MORE_PHOTOS_LOADED } from '../constants/flicker'
+import { getPhotos } from '../../services/photos'
 
 export function onPhotoSearchTermEnter(action$) {
   return action$.ofType(ON_SEARCH_PHOTOS_ENTER)
@@ -35,11 +36,6 @@ export function onLoadMorePhotos(action$, store) {
         .do(_ => console.log(_))
         .map((res) => handleResponse(res, ON_MORE_PHOTOS_LOADED))
     )
-
-}
-
-function getPhotos(text, page) {
-  return `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ad24bb1f7a2c63b760462b485f9bb9f0&format=json&per_page=25&text=${text}&page=${page}`
 }
 
 function formatResponse(xhr) {
