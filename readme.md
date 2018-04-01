@@ -20,7 +20,7 @@ react-redux -> react bindings for redux, reason: need it for redux
 redux -> state container for JS apps, reason: best state management tool
 
 redux-observable -> rxjs based middleware for redux, reason: to handle all 
-the async actions with reactive programming
+async actions with reactive programming
 
 rxjs -> The ReactiveX library for JavaScript, reason: need it for redux-observable and reactive programming
 ```
