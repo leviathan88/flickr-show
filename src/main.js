@@ -1,16 +1,16 @@
 import React from 'react'
-import { Container, Content, View } from 'native-base'
-import FlickerHeader from './components/FlickerHeader'
-import FlickerSearch from './components/FlickerSearch'
-import FlickerList from './components/FlickerList'
+import { Scene, Router, ActionConst } from 'react-native-router-flux'
+import List from './components/List'
 
-const MainComponent = () =>
-  <Container>
-    <FlickerHeader />
-    <FlickerSearch />
-    <Container>      
-      <FlickerList />
-    </Container>
-  </Container>
+const RouterComponent = () => {
+  return (
+    <Router>
+      <Scene key='root' hideNavBar>
+        <Scene key='list' hideNavBar component={List} />
+        <Scene key='details' component={List} />
+      </Scene>
+    </Router>
+  )
+}
 
-export default MainComponent
+export default RouterComponent
