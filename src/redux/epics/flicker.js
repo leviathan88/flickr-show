@@ -16,7 +16,7 @@ import { ON_SEARCH_PHOTOS_ENTER, ON_INITIAL_PHOTOS_LOADED, ON_LOAD_MORE_PHOTOS, 
 
 export function onPhotoSearchTermEnter(action$) {
   return action$.ofType(ON_SEARCH_PHOTOS_ENTER)
-    .debounceTime(400)
+    .debounceTime(200)
     .switchMap(({ payload }) => 
       ajax.get(getPhotos(payload, 1))
         .do(_ => console.log(_))

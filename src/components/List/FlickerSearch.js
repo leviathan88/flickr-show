@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base'
 
-import { onSearchInputEnter } from '../redux/actions/flicker'
+import { onSearchInputEnter } from '../../redux/actions/flicker'
 
 const FlickerSearch = ({ onSearchInputEnter, searchTerms }) => {
   return (    

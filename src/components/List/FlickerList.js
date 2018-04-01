@@ -3,8 +3,8 @@ import { List, ListItem, Thumbnail, Text, Body, Right, View } from 'native-base'
 import { FlatList, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getSmallPhoto } from '../services/photos'
-import { loadMorePhotos } from '../redux/actions/flicker'
+import { getSmallPhoto } from '../../services/photos'
+import { loadMorePhotos } from '../../redux/actions/flicker'
 
 const FlickerList = ({ photos, loadMorePhotos, isLoading }) => {
   renderFooter = () => {
