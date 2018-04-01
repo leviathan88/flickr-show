@@ -29,7 +29,7 @@ const FlickerList = ({ photos, loadMorePhotos, isLoading }) => {
         data={photos}
         keyExtractor={item => item.id}
         renderItem={({ item, index }) => (
-          <ListItem key={item.id}>
+          <ListItem>
             <Thumbnail square size={80} source={{ uri: getSmallPhoto(item) }} />
             <Body>
               <Text> { item.title } </Text>
@@ -40,13 +40,8 @@ const FlickerList = ({ photos, loadMorePhotos, isLoading }) => {
           </ListItem>
         )}
         ListFooterComponent={renderFooter}
-        onEndReachedThreshold={400}
-        
-        onEndReached={({ distanceFromEnd }) => {
-          console.log('IM at the end and dyong')
-          console.log(distanceFromEnd)
-          // loadMorePhotos()
-        }}
+        onEndReachedThreshold={0.01}
+        onEndReached={loadMorePhotos}
       />
     </List>
   )
