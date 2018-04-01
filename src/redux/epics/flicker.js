@@ -39,7 +39,7 @@ export function onLoadMorePhotos(action$, store) {
 }
 
 function getPhotos(text, page) {
-  return `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ad24bb1f7a2c63b760462b485f9bb9f0&format=json&per_page=55&text=${text}&page=${page}`
+  return `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ad24bb1f7a2c63b760462b485f9bb9f0&format=json&per_page=25&text=${text}&page=${page}`
 }
 
 function formatResponse(xhr) {
