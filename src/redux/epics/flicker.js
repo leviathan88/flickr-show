@@ -46,6 +46,7 @@ export function onShowPhotoDetails(action$) {
     )
 }
 
+// for some reason Flickr API returned empty response data, so I had to get it from res.xhr._response
 function formatResponse(xhr) {
   return JSON.parse('{' + xhr._response.slice(15, -1))
 }
