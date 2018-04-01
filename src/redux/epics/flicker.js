@@ -12,8 +12,11 @@ import 'rxjs/add/operator/catch'
 import { ajax } from 'rxjs/observable/dom/ajax'
 import { Observable } from 'rxjs'
 
-import { ON_SEARCH_PHOTOS_ENTER, ON_INITIAL_PHOTOS_LOADED, ON_LOAD_MORE_PHOTOS, ON_MORE_PHOTOS_LOADED } from '../constants/flicker'
-import { getPhotos } from '../../services/photos'
+import { ON_SEARCH_PHOTOS_ENTER, 
+  ON_INITIAL_PHOTOS_LOADED, ON_LOAD_MORE_PHOTOS, 
+  ON_MORE_PHOTOS_LOADED, ON_SHOW_PHOTO_DETAILS, 
+  ON_PHOTO_DEATILS_LOADED } from '../constants/flicker'
+import { getPhotos, getPhotoInfo } from '../../services/photos'
 
 export function onPhotoSearchTermEnter(action$) {
   return action$.ofType(ON_SEARCH_PHOTOS_ENTER)
@@ -35,6 +38,18 @@ export function onLoadMorePhotos(action$, store) {
         .map(({xhr}) =>formatResponse(xhr))
         .do(_ => console.log(_))
         .map((res) => handleResponse(res, ON_MORE_PHOTOS_LOADED))
+    )
+}
+
+export function onShowPhotoDetails(action$) {
+  return action$.ofType(ON_SHOW_PHOTO_DETAILS)
+    .switchMap(({ payload }) =>
+      ajax.get(getPhotoInfo(payload))
+        .do(_ => console.log(_))
+        .map(({xhr}) =>formatResponse(xhr))
+        .do(_ => console.log(_))
+        .map((res) => ({ type: ON_PHOTO_DEATILS_LOADED, payload: res.photo }))
+
     )
 }
 
