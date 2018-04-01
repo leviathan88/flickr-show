@@ -1,9 +1,10 @@
 import { combineEpics, createEpicMiddleware } from "redux-observable"
-import { onPhotoSearchTermEnter, onLoadMorePhotos } from "./flicker"
+import { onPhotoSearchTermEnter, onLoadMorePhotos, onShowPhotoDetails } from "./flicker"
 
 const epic = combineEpics(
   onPhotoSearchTermEnter,
-  onLoadMorePhotos
+  onLoadMorePhotos,
+  onShowPhotoDetails
 )
 
 export const epicMiddleware = createEpicMiddleware(epic)
